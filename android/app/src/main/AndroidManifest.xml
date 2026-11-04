@@ -9,6 +9,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
+        <!-- هذا السطر هو الذي يخبر المحرك بأن التطبيق يعمل بنظام Embedding V2 -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
