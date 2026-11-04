@@ -22,18 +22,16 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Purge V1 & Inject Clean V2 Embedding
+      - name: Create Clean Project & Merge Code
         run: |
-          rm -rf android/app/src/main/java
-          mkdir -p android/app/src/main/kotlin/com/example/car_log_app
-          cat << 'EOF' > android/app/src/main/kotlin/com/example/car_log_app/MainActivity.kt
-          package com.example.car_log_app
-
-          import io.flutter.embedding.android.FlutterActivity
-
-          class MainActivity: FlutterActivity() {
-          }
-          EOF
+          # 1. إنشاء مشروع جديد نظيف تماماً بـ V2 Embedding في مجلد مؤقت
+          flutter create --org com.example temp_app
+          
+          # 2. نسخ مجلد android ومجالات البناء النظيفة إلى مشروعنا
+          cp -r temp_app/android ./android
+          
+          # 3. تنظيف المجلد المؤقت
+          rm -rf temp_app
 
       - name: Install Dependencies
         run: flutter pub get
