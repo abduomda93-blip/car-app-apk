@@ -22,11 +22,9 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Disable Analytics
-        run: flutter config --no-analytics
-
-      - name: Auto Fix V2 Embedding
+      - name: Purge V1 & Inject Clean V2 Embedding
         run: |
+          rm -rf android/app/src/main/java
           mkdir -p android/app/src/main/kotlin/com/example/car_log_app
           cat << 'EOF' > android/app/src/main/kotlin/com/example/car_log_app/MainActivity.kt
           package com.example.car_log_app
