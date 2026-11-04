@@ -22,8 +22,12 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Auto Fix V2 Embedding Structure
+      - name: Disable Analytics
+        run: flutter config --no-analytics
+
+      - name: Upgrade Android Embedding to V2
         run: |
+          rm -rf android/app/src/main/java
           mkdir -p android/app/src/main/kotlin/com/example/car_log_app
           cat << 'EOF' > android/app/src/main/kotlin/com/example/car_log_app/MainActivity.kt
           package com.example.car_log_app
@@ -37,8 +41,8 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build APK
-        run: flutter build apk --release
+      - name: Build APK with Migration Override
+        run: flutter build apk --release --no-tree-shake-icons
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
