@@ -25,12 +25,17 @@ jobs:
       - name: Disable Analytics
         run: flutter config --no-analytics
 
-      - name: Force V2 Embedding Structure
+      - name: Auto Fix V2 Embedding
         run: |
           mkdir -p android/app/src/main/kotlin/com/example/car_log_app
-          echo "package com.example.car_log_app" > android/app/src/main/kotlin/com/example/car_log_app/MainActivity.kt
-          echo "import io.flutter.embedding.android.FlutterActivity" >> android/app/src/main/kotlin/com/example/car_log_app/MainActivity.kt
-          echo "class MainActivity: FlutterActivity() {}" >> android/app/src/main/kotlin/com/example/car_log_app/MainActivity.kt
+          cat << 'EOF' > android/app/src/main/kotlin/com/example/car_log_app/MainActivity.kt
+          package com.example.car_log_app
+
+          import io.flutter.embedding.android.FlutterActivity
+
+          class MainActivity: FlutterActivity() {
+          }
+          EOF
 
       - name: Install Dependencies
         run: flutter pub get
