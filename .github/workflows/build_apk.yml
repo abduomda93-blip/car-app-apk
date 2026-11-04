@@ -22,15 +22,17 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Build Clean Fresh App Structure
+      - name: Auto Fix V2 Embedding Structure
         run: |
-          mkdir -p ../user_code
-          cp -r lib ../user_code/
-          cp pubspec.yaml ../user_code/
-          rm -rf ./* ./.* 2>/dev/null || true
-          flutter create --org com.example --project-name car_log_app .
-          cp -r ../user_code/lib ./
-          cp ../user_code/pubspec.yaml ./
+          mkdir -p android/app/src/main/kotlin/com/example/car_log_app
+          cat << 'EOF' > android/app/src/main/kotlin/com/example/car_log_app/MainActivity.kt
+          package com.example.car_log_app
+
+          import io.flutter.embedding.android.FlutterActivity
+
+          class MainActivity: FlutterActivity() {
+          }
+          EOF
 
       - name: Install Dependencies
         run: flutter pub get
