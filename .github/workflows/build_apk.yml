@@ -22,26 +22,20 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Disable Analytics
-        run: flutter config --no-analytics
-
-      - name: Upgrade Android Embedding to V2
+      - name: Rebuild Fresh V2 Android Project
         run: |
-          rm -rf android/app/src/main/java
-          mkdir -p android/app/src/main/kotlin/com/example/car_log_app
-          cat << 'EOF' > android/app/src/main/kotlin/com/example/car_log_app/MainActivity.kt
-          package com.example.car_log_app
-
-          import io.flutter.embedding.android.FlutterActivity
-
-          class MainActivity: FlutterActivity() {
-          }
-          EOF
+          mkdir -p ../temp_code
+          cp -r lib ../temp_code/
+          cp pubspec.yaml ../temp_code/
+          rm -rf ./* ./.* 2>/dev/null || true
+          flutter create --org com.example --project-name car_log_app .
+          cp -r ../temp_code/lib ./
+          cp ../temp_code/pubspec.yaml ./
 
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build APK with Migration Override
+      - name: Build APK
         run: flutter build apk --release --no-tree-shake-icons
 
       - name: Upload APK
