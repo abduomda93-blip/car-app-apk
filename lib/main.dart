@@ -53,7 +53,7 @@ class _CarTrackerAppState extends State<CarTrackerApp> {
         brightness: Brightness.light,
         colorSchemeSeed: Colors.teal,
         scaffoldBackgroundColor: const Color(0xFFF7F9FC),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           elevation: 2,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
@@ -63,7 +63,7 @@ class _CarTrackerAppState extends State<CarTrackerApp> {
         brightness: Brightness.dark,
         colorSchemeSeed: Colors.teal,
         scaffoldBackgroundColor: const Color(0xFF121212),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           elevation: 2,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
